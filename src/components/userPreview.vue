@@ -4,12 +4,20 @@
       <img src="../assets/img/noimage.png" alt="" />
     </div>
     <div class="user__data">
-      <span>Bret</span>
-      <span>Sincere@april.biz</span>
+      <span>{{ user['name'] }}</span>
+      <span>{{ user['email'] }}</span>
     </div>
   </div>
 </template>
-<script></script>
+<script>
+export default {
+  props: {
+    user: {
+      type: Object
+    }
+  }
+}
+</script>
 <style lang="scss">
 .user {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);

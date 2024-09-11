@@ -13,7 +13,17 @@ export default {
         photo: '',
         about:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-      }
+      },
+      usersData: [
+        {
+          name: 'name1',
+          email: 'emeil1@email.email'
+        },
+        {
+          name: 'name2',
+          email: 'email2@email.email'
+        }
+      ]
     }
   },
   components: {
@@ -39,7 +49,9 @@ export default {
             <h3 class="aside__title">Результаты</h3>
             <span v-if="searchResult" class="aside__subtitle">начните поиск </span>
             <div class="aside__content">
-              <userPreview v-if="!searchResult" v-for="a of 3"></userPreview>
+              <template v-if="usersData.length >= 1">
+                <userPreview v-for="user of usersData" :key="user.name" :user="user" />
+              </template>
             </div>
           </div>
         </div>
@@ -47,7 +59,7 @@ export default {
       <div v-if="searchResult" class="search_empty">
         <span class="search__empty">Выберите сотрудника, чтобы посмотреть его профиль</span>
       </div>
-      <userDetails v-if="!searchResult"></userDetails>
+      <userDetails v-if="!searchResult" :userData="userData"></userDetails>
     </main>
   </section>
 </template>
