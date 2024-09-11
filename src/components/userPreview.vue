@@ -4,7 +4,7 @@
       <img src="../assets/img/noimage.png" alt="" />
     </div>
     <div class="user__data">
-      <span>{{ user['name'] }}</span>
+      <span>{{ user['username'] }}</span>
       <span>{{ user['email'] }}</span>
     </div>
   </div>
@@ -44,7 +44,7 @@ export default {
     }
     span:last-child {
       font-weight: 400;
-      font-size: 14px;
+      font-size: 12px;
       color: #76787d;
     }
   }

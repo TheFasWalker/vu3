@@ -1,9 +1,15 @@
 <template>
   <label>
-    <input type="text" placeholder="Введите id или имя" />
+    <input type="text" placeholder="Введите id или имя" @input="onEndInput()" />
   </label>
 </template>
-<script></script>
+<script>
+export default {
+  props: {
+    onEndInput: Function
+  }
+}
+</script>
 <style lang="scss" module>
 input {
   border: 1.5px solid #e9ecef;
