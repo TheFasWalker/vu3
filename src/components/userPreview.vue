@@ -1,5 +1,5 @@
 <template>
-  <div class="user active">
+  <div class="user" :class="active">
     <div class="user__photo">
       <img src="../assets/img/noimage.png" alt="" />
     </div>
@@ -14,7 +14,8 @@ export default {
   props: {
     user: {
       type: Object
-    }
+    },
+    active: String
   }
 }
 </script>

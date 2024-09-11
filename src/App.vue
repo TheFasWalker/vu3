@@ -50,7 +50,12 @@ export default {
             <span v-if="searchResult" class="aside__subtitle">начните поиск </span>
             <div class="aside__content">
               <template v-if="usersData.length >= 1">
-                <userPreview v-for="user of usersData" :key="user.name" :user="user" />
+                <userPreview
+                  v-for="(user, index) of usersData"
+                  :key="user.name"
+                  :user="user"
+                  :active="index == 1 ? 'active' : ''"
+                />
               </template>
             </div>
           </div>
@@ -59,7 +64,7 @@ export default {
       <div v-if="searchResult" class="search_empty">
         <span class="search__empty">Выберите сотрудника, чтобы посмотреть его профиль</span>
       </div>
-      <userDetails v-if="!searchResult" :userData="userData"></userDetails>
+      <userDetails v-if="!searchResult" :userData="userData" />
     </main>
   </section>
 </template>
