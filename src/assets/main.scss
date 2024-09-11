@@ -1,1 +1,132 @@
-@import './base.css';
+@import './base.scss';
+
+.container {
+  width: 1366px;
+  height: 748px;
+  background-color: #ffffff;
+  border: 1px solid black;
+  padding: 50px 50px 50px 40px;
+}
+.logo {
+  font-weight: 700;
+  font-size: 32px;
+  color: #e31f24;
+  text-decoration: none;
+}
+.user {
+  font-weight: 400;
+  font-size: 16px;
+  color: #333;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+main {
+  width: 100%;
+  height: 589px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background: #fdfdfd;
+  display: grid;
+  grid-template-columns: 293px 1fr;
+}
+.aside {
+  &__container {
+    padding: 23px 23px;
+    border-right: 1px solid #dededd;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  &__subtitle {
+    font-weight: 400;
+    font-size: 14px;
+    color: #76787d;
+  }
+  &__results {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  &__content {
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+}
+.search {
+  &_empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &__empty {
+    font-weight: 400;
+    font-size: 14px;
+    color: #76787d;
+  }
+  &_found {
+    padding: 30px 20px;
+  }
+  &__data {
+    display: flex;
+    flex-direction: column;
+  }
+  &__name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 140%;
+    color: #000;
+  }
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  &__photo img {
+    width: 100%;
+    height: auto;
+  }
+  &__contacts {
+    padding-top: 20px;
+
+    font-size: 14px;
+    line-height: 140%;
+
+    font-weight: 400;
+    color: #76787d;
+    span:first-child {
+      font-weight: 600;
+      color: #333;
+      margin-right: 10px;
+    }
+  }
+  &__about {
+    h4 {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 140%;
+      color: #333;
+      padding-top: 20px;
+      padding-bottom: 25px;
+    }
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      color: #76787d;
+    }
+  }
+}
