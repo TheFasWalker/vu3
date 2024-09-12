@@ -2,10 +2,13 @@
 import inputComponent from './components/inputComponen.vue'
 import userPreview from './components/userPreview.vue'
 import userDetails from './components/userDetails.vue'
+import loderComponent from './components/loderComponent.vue'
 
 export default {
   data() {
     return {
+      loading: false,
+      error: false,
       userData: {
         name: 'Ervin Howell',
         phone: '010-692-6593 x09125',
@@ -20,20 +23,29 @@ export default {
   components: {
     inputComponent: inputComponent,
     userPreview: userPreview,
-    userDetails: userDetails
+    userDetails: userDetails,
+    loderComponent: loderComponent
   },
   methods: {
-    onEndInput: function () {
-      console.log(event.target.value)
-    },
-    getUsersData: function () {
-
-      fetch('https://jsonplaceholder.typicode.com/users')
-        .then((response) => response.json())
-        .then((users) => {
-          console.log(users)
-          this.usersData = users
-        })
+    onEndInput: async function () {
+      let searchData = event.target.value
+      console.log(searchData)
+      this.loading = true
+      this.error = false
+      try {
+        const response = await fetch(
+          `https://jsonplaceholder.typicode.com/users?username_like=${searchData}`
+        )
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        this.usersData = await response.json()
+      } catch (error) {
+        this.error = 'Error fetching users: ' + error.message
+      } finally {
+        this.loading = false
+        this.error = true
+      }
     }
   }
 }
@@ -52,7 +64,15 @@ export default {
           <inputComponent :onEndInput="onEndInput" />
           <div class="aside__results">
             <h3 class="aside__title">Результаты</h3>
-            <span v-if="usersData.length < 1" class="aside__subtitle">начните поиск </span>
+            <template v-if="loading">
+              <loderComponent />
+            </template>
+            <span v-if="usersData.length < 1 && !error" class="aside__subtitle"
+              >начните поиск
+            </span>
+            <span v-if="usersData.length < 1 && error" class="aside__subtitle"
+              >нет соответствий
+            </span>
             <div class="aside__content">
               <template v-if="usersData.length >= 1">
                 <userPreview

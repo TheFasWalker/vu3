@@ -1,6 +1,6 @@
 <template>
   <label>
-    <input type="text" placeholder="Введите id или имя" @input="onEndInput()" />
+    <input type="text" placeholder="Введите id или имя" v-on:keyup.enter="onEndInput()" />
   </label>
 </template>
 <script>
