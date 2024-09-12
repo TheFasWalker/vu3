@@ -9,6 +9,8 @@ export default {
     return {
       loading: false,
       error: false,
+      userDataLoading: false,
+      userDataLoadingError: false,
       userData: '',
       usersData: []
     }
@@ -22,9 +24,9 @@ export default {
   methods: {
     onEndInput: async function () {
       let searchData = event.target.value
-      console.log(searchData)
       this.loading = true
       this.error = false
+      this.userData = ''
       try {
         const response = await fetch(
           `https://jsonplaceholder.typicode.com/users?username_like=${searchData}`
@@ -35,15 +37,32 @@ export default {
         this.usersData = await response.json()
       } catch (error) {
         this.error = 'Error fetching users: ' + error.message
+        this.error = true
       } finally {
         this.loading = false
         this.error = true
       }
     },
-    clickElem(index) {
+
+    async clickElem(index, id) {
       this.usersData.forEach((user, i) => {
-        user.isActive = i === index 
+        user.isActive = i === index
       })
+
+      try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/users?id=${id}`)
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+
+        const userDataArray = await response.json()
+        this.userData = userDataArray[0]
+      } catch (error) {
+        this.userDataLoadingError = 'Error fetching user by id: ' + error.message
+      } finally {
+        this.userDataLoading = false
+        this.userDataLoadingError = true
+      }
     }
   }
 }
@@ -75,20 +94,23 @@ export default {
               <template v-if="usersData.length >= 1">
                 <userPreview
                   v-for="(user, index) of usersData"
-                  :key="user.name"
+                  :key="user.id"
                   :user="user"
                   :active="user.isActive"
-                  @click="clickElem(index)"
+                  @click="clickElem(index, user.id)"
                 />
               </template>
             </div>
           </div>
         </div>
       </aside>
-      <div v-if="!userData.length" class="search_empty">
+      <div v-if="!userData" class="search_empty">
         <span class="search__empty">Выберите сотрудника, чтобы посмотреть его профиль</span>
+        <template v-if="userDataLoading">
+          <loderComponent />
+        </template>
       </div>
-      <userDetails v-if="userData.length" :userData="userData" />
+      <userDetails v-if="userData" :userData="userData" />
     </main>
   </section>
 </template>

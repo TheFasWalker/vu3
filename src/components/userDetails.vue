@@ -16,7 +16,7 @@
         </div>
         <div class="search__about">
           <h4>О себе:</h4>
-          <p>{{ userData['about'] }}</p>
+          <p>{{ userData['company']['catchPhrase'] }}</p>
         </div>
       </div>
     </div>

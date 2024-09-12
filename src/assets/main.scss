@@ -73,6 +73,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   &__empty {
     font-weight: 400;
@@ -81,6 +82,7 @@ main {
   }
   &_found {
     padding: 30px 20px;
+    position: relative;
   }
   &__data {
     display: flex;
