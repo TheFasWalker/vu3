@@ -1,5 +1,5 @@
 <template>
-  <div class="user" :class="active">
+  <div class="user" :class="{ [activeClass]: active }">
     <div class="user__photo">
       <img src="../assets/img/noimage.png" alt="" />
     </div>
@@ -15,7 +15,12 @@ export default {
     user: {
       type: Object
     },
-    active: String
+    active: Boolean
+  },
+  data() {
+    return {
+      activeClass: 'active'
+    }
   }
 }
 </script>

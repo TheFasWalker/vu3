@@ -9,14 +9,7 @@ export default {
     return {
       loading: false,
       error: false,
-      userData: {
-        name: 'Ervin Howell',
-        phone: '010-692-6593 x09125',
-        email: 'Shanna@melissa.tv',
-        photo: '',
-        about:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-      },
+      userData: '',
       usersData: []
     }
   },
@@ -46,6 +39,11 @@ export default {
         this.loading = false
         this.error = true
       }
+    },
+    clickElem(index) {
+      this.usersData.forEach((user, i) => {
+        user.isActive = i === index 
+      })
     }
   }
 }
@@ -79,18 +77,18 @@ export default {
                   v-for="(user, index) of usersData"
                   :key="user.name"
                   :user="user"
-                  :active="index == 1 ? 'active' : ''"
+                  :active="user.isActive"
+                  @click="clickElem(index)"
                 />
               </template>
             </div>
           </div>
         </div>
       </aside>
-      <div v-if="searchResult" class="search_empty">
+      <div v-if="!userData.length" class="search_empty">
         <span class="search__empty">Выберите сотрудника, чтобы посмотреть его профиль</span>
       </div>
-      <userDetails v-if="!searchResult" :userData="userData" />
+      <userDetails v-if="userData.length" :userData="userData" />
     </main>
-    <button @click="getUsersData">Button</button>
   </section>
 </template>
