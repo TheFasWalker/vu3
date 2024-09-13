@@ -24,12 +24,45 @@ export default {
   methods: {
     onEndInput: async function () {
       let searchData = event.target.value
+      const searchTerms = searchData.split(',').map((term) => term.trim())
+      const searchIds = []
+      const searchUserNames = []
+      let searchDataString = ''
+      if (searchTerms.length > 1) {
+      
+        searchTerms.forEach((elem) => {
+          if (Number(elem)) {
+            searchIds.push(elem)
+          } else {
+            searchUserNames.push(elem)
+          }
+        })
+        if (searchUserNames.length > 1) {
+          const resultString = searchUserNames
+            .map((username) => `username_like=${username}`)
+            .join('&')
+          searchDataString = `${searchDataString}${resultString}`
+        }
+        if (searchIds.length > 1) {
+          const resultString = searchIds.map((userid) => `id=${userid}`).join('&')
+          searchDataString = `${searchDataString}${resultString}`
+        }
+      } else {
+        if (Number(searchTerms[0])) {
+          searchDataString = `id=${searchTerms[0]}`
+        }
+        if (searchTerms.length == 1) {
+          searchDataString = `username_like=${searchTerms[0]}`
+        } else {
+          return
+        }
+      }
       this.loading = true
       this.error = false
       this.userData = ''
       try {
         const response = await fetch(
-          `https://jsonplaceholder.typicode.com/users?username_like=${searchData}`
+          `https://jsonplaceholder.typicode.com/users?${searchDataString}`
         )
         if (!response.ok) {
           throw new Error('Network response was not ok')

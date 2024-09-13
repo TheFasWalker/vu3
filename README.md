@@ -1,3 +1,6 @@
+Поиск происходит по полю username и по id
+При множественном поиске элементы нужно разделять запятой ( , )
+
 # vue
 
 This template should help get you started developing with Vue 3 in Vite.
